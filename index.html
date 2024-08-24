@@ -12,6 +12,33 @@
       cursor: pointer;
     }
   </style>
+  <style>
+    .popup {
+      display: none;
+      position: absolute;
+      background: white;
+      border: 1px solid black;
+      padding: 10px;
+      width: 80%;
+      max-width: 500px;
+      top: 20%;
+      left: 10%;
+      z-index: 10;
+    }
+
+    .popup.visible {
+      display: block;
+    }
+
+    .countdown {
+      font-size: 1.5em;
+      color: red;
+      position: absolute;
+      top: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  </style>
 </head>
 <body>
   <a-scene>
@@ -35,6 +62,31 @@
       <a-box position="0 1 -3" color="#4CC3D9" gaze-interactive onclick="openBrowser()">Browser</a-box>
       <a-box position="1 1 -3" color="#4CC3D9" gaze-interactive onclick="openYouTube()">YouTube</a-box>
     </a-entity>
+
+    <!-- Browser Popup -->
+    <a-entity id="browser-popup" visible="false">
+        <a-plane width="1.5" height="1" color="#FFF" position="0 1.5 -2"></a-plane>
+        <a-text id="popup-title" value="Enter URL:" position="0 1.8 -2"></a-text>
+        <a-plane id="keyboard-trigger" width="1.5" height="0.3" color="#CCC" position="0 0.2 -2" onclick="showKeyboard()"></a-plane>
+      </a-entity>
+
+      <!-- Virtual Keyboard -->
+    <a-entity id="virtual-keyboard" visible="false" position="0 0.2 -2">
+        <!-- Define keyboard keys and layout here -->
+        <a-plane width="1" height="0.2" color="#CCC" position="0 0 -0.1">
+          <a-text value="A" position="-0.4 0 0"></a-text>
+          <a-text value="B" position="-0.2 0 0"></a-text>
+          <!-- Add more keys as needed -->
+        </a-plane>
+      </a-entity>
+
   </a-scene>
+  <!-- Popup HTML -->
+  <div id="popup" class="popup">
+    <label for="url-input">Enter URL:</label>
+    <input type="text" id="url-input" placeholder="http://example.com">
+    <button onclick="openURL()">Go</button>
+    <button onclick="closePopup()">Cancel</button>
+  </div>
 </body>
 </html>
